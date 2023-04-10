@@ -17,7 +17,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        Hello World với {this.state.address} and Khoa's age is {this.state.age}
+        
         <MyComponent></MyComponent>
       </div>
     );
