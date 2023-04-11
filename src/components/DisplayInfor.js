@@ -3,18 +3,39 @@ import './DisplayInfor.scss';
 import logo from './../logo.svg';
 
 class DisplayInfor extends React.Component {
-    
-    state = {
-        isShowListUser: true,
+    constructor(props){
+        console.log('call constructor: 1')
+        super(props);
+        this.state = {
+            isShowListUser: true,
+        }
     }
+    
 
     handleShowHide = () => {
         this.setState({
             isShowListUser: !this.state.isShowListUser
         })
     } 
+
+    componentDidMount = () =>{
+        console.log('call me')
+        setTimeout(() => {
+            document.title ='khoa'
+        })
+    }
     
+    componentDidUpdate = (prevProps, prevState, snapshot) => {
+        console.log('cal me update',this.props, prevProps)
+        if(this.props.listUsers !== prevProps.listUsers) {
+            if(this.props.listUsers.length === 5) {
+                alert('You got 5 client')
+            }
+        }
+    }
+
     render() {
+        console.log('call me render')
         const {listUsers} = this.props;
         return (
             <div className="display-infor-container">
@@ -28,8 +49,6 @@ class DisplayInfor extends React.Component {
                 { this.state.isShowListUser && 
                 <>
                     {listUsers.map((user, index) => {
-                        console.log(user)
-                        
                             return (
                                 <div key={user.id} className={+user.age > 18 ? "green" : "red"}>
                                     <div >My name is {user.name}.</div>
