@@ -14,7 +14,7 @@ const Header = () => {
           <Nav className="me-auto">
             <Link to="/" className="nav-link">Home</Link>
             <Link to="/users" className="nav-link">Users</Link>
-            <Link to="/users" className="nav-link">Admin</Link>
+            <Link to="/admin" className="nav-link">Admin</Link>
           </Nav>
           <Nav>
             <NavDropdown title="Setting" id="basic-nav-dropdown">
