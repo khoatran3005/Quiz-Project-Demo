@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { FcPlus } from 'react-icons/fc';
 import { toast } from 'react-toastify';
-import { postCreateNewUser } from '../../../service/apiService';
+import { postUpdateUser } from '../../../service/apiService';
 import _ from 'lodash';
 
 const ModalUpdateUser = (props) => {
@@ -17,6 +17,7 @@ const ModalUpdateUser = (props) => {
         setRole('USER');
         setImage('');
         setpreviewImage("");
+        props.resetUpdateData();
     }
 
     const [email, setEmail] = useState('');
@@ -63,12 +64,7 @@ const ModalUpdateUser = (props) => {
             return;
         }
 
-        if (!password) {
-            toast.error("Invalid password");
-            return;
-        }
-
-        let data = await postCreateNewUser(email, password, username, role, image)
+        let data = await postUpdateUser(dataUpdate.id, username, role, image)
         if (data && data.EC === 0) {
             toast.success(data.EM);
             handleClose();
@@ -131,7 +127,7 @@ const ModalUpdateUser = (props) => {
                         <div className="col-md-4">
                             <label className="form-label">Role</label>
                             <select className="form-select" onChange={(event) => setRole(event.target.value)}
-                            value={role}>
+                                value={role}>
                                 <option value="USER">USER</option>
                                 <option value="ADMIN">ADMIN</option>
                             </select>
