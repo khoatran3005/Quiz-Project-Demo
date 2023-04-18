@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import { postUpdateUser } from '../../../service/apiService';
 import _ from 'lodash';
 
-const ModalUpdateUser = (props) => {
+const ModalViewUser = (props) => {
     const { show, setShow, dataUpdate } = props;
 
     const handleClose = () => {
@@ -55,27 +55,27 @@ const ModalUpdateUser = (props) => {
             );
     };
 
-    const handleSubmitCreateUser = async () => {
+    // const handleSubmitCreateUser = async () => {
 
-        const isValidEmail = validateEmail(email);
-        if (!isValidEmail) {
-            toast.error("Invalid email");
-            return;
-        }
+    //     const isValidEmail = validateEmail(email);
+    //     if (!isValidEmail) {
+    //         toast.error("Invalid email");
+    //         return;
+    //     }
 
-        let data = await postUpdateUser(dataUpdate.id, username, role, image)
-        if (data && data.EC === 0) {
-            toast.success(data.EM);
-            handleClose();
-            await props.fetchListUsers();
-        }
+    //     let data = await postUpdateUser(dataUpdate.id, username, role, image)
+    //     if (data && data.EC === 0) {
+    //         toast.success(data.EM);
+    //         handleClose();
+    //         await props.fetchListUsers();
+    //     }
 
-        if (data && data.EC !== 0) {
-            toast.error("The email is already exis");
-        }
+    //     if (data && data.EC !== 0) {
+    //         toast.error("The email is already exis");
+    //     }
 
         
-    }
+    // }
 
     return (
         <>
@@ -91,7 +91,7 @@ const ModalUpdateUser = (props) => {
                 className='modal-add-user'
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>Update a user</Modal.Title>
+                    <Modal.Title>View a user</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form className="row g-3">
@@ -120,13 +120,15 @@ const ModalUpdateUser = (props) => {
                             <input type="text"
                                 className="form-control"
                                 value={username}
+                                disabled
                                 onChange={(event) => setUsername(event.target.value)}
                             />
                         </div>
                         <div className="col-md-4">
                             <label className="form-label">Role</label>
                             <select className="form-select" onChange={(event) => setRole(event.target.value)}
-                                value={role}>
+                                value={role} 
+                                disabled>        
                                 <option value="USER">USER</option>
                                 <option value="ADMIN">ADMIN</option>
                             </select>
@@ -136,6 +138,7 @@ const ModalUpdateUser = (props) => {
                             <input type='file'
                                 id='labaluploadfile'
                                 hidden
+                                disabled
                                 onChange={(event) => handleUploadImage(event)} />
                         </div>
                         <div className='col-md-12 image-preview'>
@@ -151,13 +154,13 @@ const ModalUpdateUser = (props) => {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={handleSubmitCreateUser}>
+                    {/* <Button variant="primary" onClick={handleSubmitCreateUser}>
                         Save
-                    </Button>
+                    </Button> */}
                 </Modal.Footer>
             </Modal>
         </>
     );
 }
 
-export default ModalUpdateUser;
+export default ModalViewUser;
