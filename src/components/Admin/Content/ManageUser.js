@@ -6,14 +6,17 @@ import { useEffect, useState } from "react";
 import { getAllUsers } from "../../../service/apiService";
 import ModalUpdateUser from "./ModalUpdateUser";
 import ModalViewUser from "./ModalViewUser";
+import ModalDeleteUser from "./ModelDeleteUser";
 
 const ManageUser = (props) => {
 
     const [showModalCreateUser, setShowModalCreateUser] = useState(false);
     const [showModalUpdateUser, setShowModalUpdateUser] = useState(false);
     const [showModalViewUser, setShowModalViewUser] = useState(false);
+    const [showModalDeleteUser, setShowModalDeleteUser] = useState(false);
 
     const [dataUpdate, setDataUpdate] = useState({})
+    const [dataDelete, setDataDelete] = useState({})
 
     const [listUsers, setListUsers] = useState([])
 
@@ -38,6 +41,11 @@ const ManageUser = (props) => {
         setDataUpdate(user);
     }
 
+    const handleClickBtnDelete = (user) => {
+        setShowModalDeleteUser(true);
+        setDataDelete(user);
+    }
+
     const resetUpdateData = () =>{
         setDataUpdate({});
     }
@@ -55,7 +63,8 @@ const ManageUser = (props) => {
                 <div className="table-user-container">
                     <TableUser listUsers={listUsers}
                         handleClickBtnUpdate={handleClickBtnUpdate}
-                        handleClickBtnView={handleClickBtnView}></TableUser>
+                        handleClickBtnView={handleClickBtnView}
+                        handleClickBtnDelete={handleClickBtnDelete}></TableUser>
                 </div>
                 <ModalCreateUser
                     show={showModalCreateUser}
@@ -72,6 +81,10 @@ const ManageUser = (props) => {
                     setShow={setShowModalViewUser} 
                     dataUpdate = {dataUpdate}
                     resetUpdateData={resetUpdateData}/>
+                <ModalDeleteUser
+                show={showModalDeleteUser}
+                setShow={setShowModalDeleteUser}
+                dataDelete = {dataDelete} />
                     
             </div>
         </div>
