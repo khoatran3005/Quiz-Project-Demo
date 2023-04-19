@@ -46,7 +46,7 @@ const ManageUser = (props) => {
         setDataDelete(user);
     }
 
-    const resetUpdateData = () =>{
+    const resetUpdateData = () => {
         setDataUpdate({});
     }
 
@@ -73,19 +73,20 @@ const ManageUser = (props) => {
                 <ModalUpdateUser
                     show={showModalUpdateUser}
                     setShow={setShowModalUpdateUser}
-                    dataUpdate = {dataUpdate} 
+                    dataUpdate={dataUpdate}
                     fetchListUsers={fetchListUsers}
                     resetUpdateData={resetUpdateData} />
-                <ModalViewUser 
+                <ModalViewUser
                     show={showModalViewUser}
-                    setShow={setShowModalViewUser} 
-                    dataUpdate = {dataUpdate}
-                    resetUpdateData={resetUpdateData}/>
+                    setShow={setShowModalViewUser}
+                    dataUpdate={dataUpdate}
+                    resetUpdateData={resetUpdateData} />
                 <ModalDeleteUser
-                show={showModalDeleteUser}
-                setShow={setShowModalDeleteUser}
-                dataDelete = {dataDelete} />
-                    
+                    show={showModalDeleteUser}
+                    setShow={setShowModalDeleteUser}
+                    dataDelete={dataDelete}
+                    fetchListUsers={fetchListUsers} />
+
             </div>
         </div>
     )
