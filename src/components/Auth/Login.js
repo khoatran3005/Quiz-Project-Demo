@@ -1,19 +1,35 @@
 import './Login.scss';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { postLogin } from '../../service/apiService';
+import { toast } from 'react-toastify';
 
 const Login = (props) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate =useNavigate();
 
-    const handleLogin = () =>{
-        alert('me');
+    const handleLogin = async() =>{
+        //validate
+
+        //sumbit apis
+        let data = await postLogin(email, password);
+        if (data && data.EC === 0) {
+            toast.success(data.EM);
+            navigate('/');
+        }
+
+        if (data && +data.EC !== 0) {
+            toast.error(data.EM);
+        }
     }
 
     return (
         <div className="login-container">
             <div className='header'>
-                Don't have an account yet?
+                <span>Don't have an account yet?</span>
+                <button>Sign Up</button>
             </div>
             <div className='title col-4 mx-auto'>
                 Hoi Khoa Dep Trai
@@ -46,6 +62,9 @@ const Login = (props) => {
                         className='btn-submit'
                         onClick={() => handleLogin()}>
                         Login to Hoi Khoa Dep Trai</button>
+                </div>
+                <div className='text-center'>
+                    <span className='back' onClick={() => { navigate('/')}}> &lt;&lt;Go to Homepage</span>
                 </div>
             </div>
         </div>
