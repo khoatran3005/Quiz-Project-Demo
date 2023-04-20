@@ -1,14 +1,21 @@
-import './Login.scss';
+import './Register.scss';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { postLogin } from '../../service/apiService';
+import { postRegister } from '../../service/apiService';
 import { toast } from 'react-toastify';
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
 
-const Login = (props) => {
-
+const Register = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [username, setUsername] = useState('');
     const navigate = useNavigate();
+
+    const [isVisible, setVisible] = useState(false);
+
+    const toggle = () => {
+        setVisible(!isVisible);
+    }
 
     const validateEmail = (email) => {
         return String(email)
@@ -18,7 +25,7 @@ const Login = (props) => {
             );
     };
 
-    const handleLogin = async () => {
+    const handleRegister = async () => {
         //validate
         const isValidEmail = validateEmail(email);
         if (!isValidEmail) {
@@ -32,32 +39,34 @@ const Login = (props) => {
         }
 
         //sumbit apis
-        let data = await postLogin(email, password);
+        let data = await postRegister(email, username, password);
         if (data && data.EC === 0) {
+            console.log(data)
             toast.success(data.EM);
-            navigate('/');
+            navigate('/login');
         }
 
         if (data && +data.EC !== 0) {
+            console.log(data)
             toast.error(data.EM);
         }
     }
 
     return (
-        <div className="login-container">
+        <div className="register-container">
             <div className='header'>
-                <span>Don't have an account yet?</span>
-                <button onClick={() => { navigate('/register') }}>Log in</button>
+                <span>Already have an account?</span>
+                <button onClick={() => { navigate('/login') }}>Sign Up</button>
             </div>
             <div className='title col-4 mx-auto'>
                 Hoi Khoa Dep Trai
             </div>
             <div className='welcome col-4 mx-auto'>
-                Hello, who's this?
+                Get better data with conversational forms, surveys, quizzes & more.
             </div>
             <div className='content-form col-4 mx-auto'>
                 <div className='form-group'>
-                    <label>Email </label>
+                    <label>Email (*)</label>
                     <input
                         type={"email"}
                         className='form-control'
@@ -66,20 +75,39 @@ const Login = (props) => {
                     />
                 </div>
                 <div className='form-group'>
-                    <label>Password</label>
+                    <label>Username</label>
                     <input
-                        type={"password"}
+                        type={"username"}
+                        className='form-control'
+                        value={username}
+                        onChange={(event) => setUsername(event.target.value)}
+                    />
+                </div>
+                <div className='form-group pass-group'>
+                    <label>Password (*)</label>
+                    <input
+                        type={!isVisible ? "password" : "text"}
                         className='form-control'
                         value={password}
                         onChange={(event) => setPassword(event.target.value)}
                     />
+                    {isVisible ?
+                        <span className='icon-eye'
+                            onClick={() => setVisible(false)}>
+                            <AiOutlineEyeInvisible />
+                        </span>
+                        :
+                        <span className='icon-eye'
+                            onClick={() => setVisible(true)}>
+                            <AiOutlineEye />
+                        </span>
+                    }
                 </div>
-                <span>Forgot password</span>
                 <div>
                     <button
                         className='btn-submit'
-                        onClick={() => handleLogin()}>
-                        Login to Hoi Khoa Dep Trai</button>
+                        onClick={() => handleRegister()}>
+                        Create my new account</button>
                 </div>
                 <div className='text-center'>
                     <span className='back' onClick={() => { navigate('/') }}> &lt;&lt;Go to Homepage</span>
@@ -89,4 +117,4 @@ const Login = (props) => {
     )
 }
 
-export default Login;
+export default Register;

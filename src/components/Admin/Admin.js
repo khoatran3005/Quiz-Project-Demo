@@ -24,7 +24,6 @@ const Admin = () => {
                 <Outlet />
             </div>
 
-
         </div>
     )
 }
