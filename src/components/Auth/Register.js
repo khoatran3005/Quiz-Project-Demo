@@ -56,7 +56,7 @@ const Register = (props) => {
         <div className="register-container">
             <div className='header'>
                 <span>Already have an account?</span>
-                <button onClick={() => { navigate('/login') }}>Sign Up</button>
+                <button onClick={() => { navigate('/login') }}>Login</button>
             </div>
             <div className='title col-4 mx-auto'>
                 Hoi Khoa Dep Trai

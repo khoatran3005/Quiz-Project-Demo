@@ -3,11 +3,15 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { postLogin } from '../../service/apiService';
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { doLogin } from '../../redux/action/userAction';
 
 const Login = (props) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const validateEmail = (email) => {
@@ -33,7 +37,9 @@ const Login = (props) => {
 
         //sumbit apis
         let data = await postLogin(email, password);
+        // dispatch({})
         if (data && data.EC === 0) {
+            dispatch(doLogin(data))
             toast.success(data.EM);
             navigate('/');
         }
@@ -47,7 +53,7 @@ const Login = (props) => {
         <div className="login-container">
             <div className='header'>
                 <span>Don't have an account yet?</span>
-                <button onClick={() => { navigate('/register') }}>Log in</button>
+                <button onClick={() => { navigate('/register') }}>Sign up</button>
             </div>
             <div className='title col-4 mx-auto'>
                 Hoi Khoa Dep Trai
