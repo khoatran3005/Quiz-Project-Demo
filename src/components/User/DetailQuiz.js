@@ -14,29 +14,27 @@ const DetailQuiz = (props) => {
     const [dataQuiz, setDataQuiz] = useState([]);
     const [index, setIndex] = useState(0);
 
-    console.log('dsd', location)
-
     const handlePrev = () => {
-        if (index - 1 < 0 ) return;
+        if (index - 1 < 0) return;
         setIndex(index - 1)
     }
 
     const handleNext = () => {
-        if (dataQuiz && dataQuiz.length > index + 1) 
-        setIndex(index + 1)
+        if (dataQuiz && dataQuiz.length > index + 1)
+            setIndex(index + 1)
     }
 
     const handleCheckBox = (answerId, questionId) => {
         let dataQuizClone = _.cloneDeep(dataQuiz)
         let question = dataQuizClone.find(item => +item.questionId === +questionId)
-        if (question && question.answers            ) {
+        if (question && question.answers) {
             let b = question.answers.map(item => {
                 if (+item.id === +answerId) {
                     item.isSelected = !item.isSelected;
                 }
                 return item;
             })
-        question.answers = b;
+            question.answers = b;
         }
         let index = dataQuizClone.findIndex(item => +item.questionId === +questionId)
         if (index > -1) {
@@ -45,13 +43,51 @@ const DetailQuiz = (props) => {
         }
     }
 
+    // {
+    //     "quizId": 1,
+    //     "answers": [
+    //         { 
+    //             "questionId": 1,
+    //             "userAnswerId": [3]
+    //         },
+    //         { 
+    //             "questionId": 2,
+    //             "userAnswerId": [6]
+    //         }
+    //     ]
+    // }
+    const handleFinish = () => {
+        let payload = {
+            quizId: +quizId,
+            answers: []
+        };
+        let answers = [];
+        if (dataQuiz && dataQuiz.length > 0) {
+            dataQuiz.forEach(item => {
+                let questionId = item.questionId;
+                let userAnswerId = []
+
+                item.answers.forEach(a => {
+                    if (a.isSelected) {
+                        userAnswerId.push(a.id)
+                    }
+                })
+                answers.push({
+                    questionId: +questionId,
+                    userAnswerId: userAnswerId
+                })
+            })
+        }
+        payload.answers = answers;
+        console.log('payload', payload)
+    }
+
     useEffect(() => {
         fetchQuestions();
     }, [quizId])
 
     const fetchQuestions = async () => {
         let res = await getDataQuiz(quizId);
-        console.log(res);
         if (res && res.EC === 0) {
             let raw = res.DT
             let data = _.chain(raw)
@@ -79,8 +115,6 @@ const DetailQuiz = (props) => {
             setDataQuiz(data);
         }
     }
-
-    console.log('data Quiz', dataQuiz)
     return (
         <div className="detail-quiz-container">
             <div className="left-container">
@@ -93,20 +127,20 @@ const DetailQuiz = (props) => {
                 </div>
                 <div className="q-content">
                     <Question
-                    handleCheckBox={handleCheckBox} 
-                    index={index}
-                    data={dataQuiz && dataQuiz.length > 0 ? dataQuiz[index] : []}></Question>
+                        handleCheckBox={handleCheckBox}
+                        index={index}
+                        data={dataQuiz && dataQuiz.length > 0 ? dataQuiz[index] : []}></Question>
                 </div>
                 <div className="footer">
-                    <button 
-                    className="btn btn-secondary"
-                    onClick={() => handlePrev()}>Prev</button>
-                    <button 
-                    className="btn btn-primary"
-                    onClick={() => handleNext()}>Next</button>
-                    <button 
-                    className="btn btn-warning"
-                    onClick={() => handleNext()}>Finish</button>
+                    <button
+                        className="btn btn-secondary"
+                        onClick={() => handlePrev()}>Prev</button>
+                    <button
+                        className="btn btn-primary"
+                        onClick={() => handleNext()}>Next</button>
+                    <button
+                        className="btn btn-warning"
+                        onClick={() => handleFinish()}>Finish</button>
                 </div>
             </div>
             <div className="right-container">
