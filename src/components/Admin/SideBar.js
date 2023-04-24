@@ -7,15 +7,17 @@ import {
     SidebarHeader,
     SidebarFooter,
     SidebarContent,
-  } from 'react-pro-sidebar';
-  import { FaTachometerAlt, FaGem, FaList, FaGithub, FaRegLaughWink, FaHeart } from 'react-icons/fa';
-  import sidebarBg from '../../assets/bg2.jpg';
-  import {DiReact} from "react-icons/di";
-  import {MdDashboard} from "react-icons/md";
-  import { Link } from 'react-router-dom';
+} from 'react-pro-sidebar';
+import { FaTachometerAlt, FaGem, FaList, FaGithub, FaRegLaughWink, FaHeart } from 'react-icons/fa';
+import sidebarBg from '../../assets/bg2.jpg';
+import { DiReact } from "react-icons/di";
+import { MdDashboard } from "react-icons/md";
+import { Link, useNavigate } from 'react-router-dom';
 
 const SideBar = (props) => {
     const { image, collapsed, toggled, handleToggleSidebar } = props;
+
+    const navigate = useNavigate();
     return (
         <div>
             <ProSidebar
@@ -39,7 +41,7 @@ const SideBar = (props) => {
                         }}
                     >
                         <DiReact size="3em" color='#00bfff'></DiReact>
-                        <span>Hoi Dan It</span>
+                        <span onClick={() => navigate('/')}>Hoi Dan It</span>
                     </div>
                 </SidebarHeader>
 
@@ -51,13 +53,13 @@ const SideBar = (props) => {
                             Dashboard<Link to="/admin" />
                         </MenuItem>
                     </Menu>
-                    <Menu iconShape="circle"> 
+                    <Menu iconShape="circle">
                         <SubMenu
-                            icon={<FaGem/>}
+                            icon={<FaGem />}
                             title="Features"
-                        >   
+                        >
                             <MenuItem>Users Management<Link to="/admin/manage-users" /></MenuItem>
-                            <MenuItem>Quiz Management</MenuItem>
+                            <MenuItem>Quiz Management<Link to="/admin/manage-quiz" /></MenuItem>
                             <MenuItem>Question Management</MenuItem>
                         </SubMenu>
                     </Menu>
