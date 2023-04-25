@@ -50,7 +50,7 @@ const ModalEditQuiz = (props) => {
             return;
         }
 
-        let res = await putUpdateQuiz(dataQuizUpdate.id,description, name, type, image);
+        let res = await putUpdateQuiz(dataQuizUpdate.id, description, name, type, image);
         if (res && res.EC === 0) {
             toast.success(res.EM)
             setName('');
@@ -98,7 +98,7 @@ const ModalEditQuiz = (props) => {
                         </div>
                         <div className="col-md-4">
                             <label className="form-label">Type</label>
-                            <select className="form-select" onChange={(event) => {setType(event.target.value)}}
+                            <select className="form-select" onChange={(event) => { setType(event.target.value) }}
                                 value={type} >
                                 <option value="EASY">EASY</option>
                                 <option value="MEDIUM">MEDIUM</option>
@@ -106,7 +106,7 @@ const ModalEditQuiz = (props) => {
                             </select>
                         </div>
                         <div className='col-md-12'>
-                            <label className='form-label label-upload' htmlFor='labaluploadfile'><FcPlus /> Upload File Image</label>
+                            <label className='form-label label-upload' htmlhtmlFor='labaluploadfile'><FcPlus /> Upload File Image</label>
                             <input type='file'
                                 id='labaluploadfile'
                                 hidden

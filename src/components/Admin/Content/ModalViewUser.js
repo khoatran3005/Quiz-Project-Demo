@@ -34,8 +34,8 @@ const ModalViewUser = (props) => {
             setUsername(dataUpdate.username);
             setRole(dataUpdate.role);
             setImage('');
-            if(dataUpdate.image) {
-            setpreviewImage(`data:image/jpeg;base64,${dataUpdate.image}`);
+            if (dataUpdate.image) {
+                setpreviewImage(`data:image/jpeg;base64,${dataUpdate.image}`);
             }
         }
     }, [dataUpdate]);
@@ -74,7 +74,7 @@ const ModalViewUser = (props) => {
     //         toast.error("The email is already exis");
     //     }
 
-        
+
     // }
 
     return (
@@ -127,14 +127,14 @@ const ModalViewUser = (props) => {
                         <div className="col-md-4">
                             <label className="form-label">Role</label>
                             <select className="form-select" onChange={(event) => setRole(event.target.value)}
-                                value={role} 
-                                disabled>        
+                                value={role}
+                                disabled>
                                 <option value="USER">USER</option>
                                 <option value="ADMIN">ADMIN</option>
                             </select>
                         </div>
                         <div className='col-md-12'>
-                            <label className='form-label label-upload' htmlFor='labaluploadfile'><FcPlus /> Upload File Image</label>
+                            <label className='form-label label-upload' htmlhtmlFor='labaluploadfile'><FcPlus /> Upload File Image</label>
                             <input type='file'
                                 id='labaluploadfile'
                                 hidden

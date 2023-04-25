@@ -8,7 +8,7 @@ import Accordion from 'react-bootstrap/Accordion';
 import ModalEditQuiz from './ModalEditQuiz';
 import ModalDeleteQuiz from './ModalDeleteQuiz';
 import { getAllQuizForAdmin } from "../../../../service/apiService"
-import { useEffect } from 'react';
+
 
 const options = [
     { value: 'EASY', label: 'EASY' },
@@ -82,25 +82,25 @@ const ManageQuiz = (props) => {
                     <Accordion.Header>ManageQuiz</Accordion.Header>
                     <Accordion.Body>
                         <div className="add-new">
-                            <fieldset class="border rounded-3 p-3">
-                                <legend class="float-none w-auto px-3">Add new quiz:</legend>
-                                <div class="form-floating mb-3">
+                            <fieldset className="border rounded-3 p-3">
+                                <legend className="float-none w-auto px-3">Add new quiz:</legend>
+                                <div className="form-floating mb-3">
                                     <input
                                         type="text"
-                                        class="form-control"
+                                        className="form-control"
                                         placeholder='your-quiz-name'
                                         value={name}
                                         onChange={(event) => setName(event.target.value)} />
-                                    <label for="floatingInput">Name</label>
+                                    <label htmlFor="floatingInput">Name</label>
                                 </div>
-                                <div class="form-floating">
+                                <div className="form-floating">
                                     <input
                                         type="text"
-                                        class="form-control"
+                                        className="form-control"
                                         placeholder='description'
                                         value={description}
                                         onChange={(event) => setDescription(event.target.value)} />
-                                    <label for="floatingPassword">Description</label>
+                                    <label htmlFor="floatingPassword">Description</label>
                                 </div>
                                 <div className='my-3'>
                                     <Select

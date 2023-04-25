@@ -129,7 +129,7 @@ const ModalCreateUser = (props) => {
                             </select>
                         </div>
                         <div className='col-md-12'>
-                            <label className='form-label label-upload' htmlFor='labaluploadfile'><FcPlus /> Upload File Image</label>
+                            <label className='form-label label-upload' htmlhtmlFor='labaluploadfile'><FcPlus /> Upload File Image</label>
                             <input type='file'
                                 id='labaluploadfile'
                                 hidden
