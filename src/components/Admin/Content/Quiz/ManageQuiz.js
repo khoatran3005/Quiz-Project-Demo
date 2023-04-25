@@ -5,8 +5,10 @@ import { postCreateNewQuiz } from '../../../../service/apiService'
 import { toast } from 'react-toastify';
 import TableQuiz from './TableQuiz';
 import Accordion from 'react-bootstrap/Accordion';
-
-
+import ModalEditQuiz from './ModalEditQuiz';
+import ModalDeleteQuiz from './ModalDeleteQuiz';
+import { getAllQuizForAdmin } from "../../../../service/apiService"
+import { useEffect } from 'react';
 
 const options = [
     { value: 'EASY', label: 'EASY' },
@@ -21,10 +23,39 @@ const ManageQuiz = (props) => {
     const [type, setType] = useState('EASY');
     const [image, setImage] = useState('');
 
+    const [listQuiz, setListQuiz] = useState([])
+
+    const [showEditModal, setShowEditModal] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+    const [dataQuizUpdate, setDataQuizUpdate] = useState({});
+    const [dataQuizDelete, setDataQuizDelete] = useState({});
+
     const handleChangeFile = (event) => {
         if (event.target && event.target.files && event.target.files[0]) {
             setImage(event.target.files[0])
         }
+    }
+
+    const handleClickEditQuiz = (quiz) => {
+        setShowEditModal(true);
+        setDataQuizUpdate(quiz);
+    }
+
+    const handleClickDeleteQuiz = (quiz) => {
+        setShowDeleteModal(true);
+        setDataQuizDelete(quiz);
+    }
+
+    const fetchQuiz = async () => {
+        let res = await getAllQuizForAdmin();
+        if (res && res.EC === 0) {
+            setListQuiz(res.DT)
+        }
+    }
+
+    const resetUpdateQuiz = () => {
+        dataQuizUpdate({});
     }
 
     const handleSubmitQuiz = async () => {
@@ -39,6 +70,7 @@ const ManageQuiz = (props) => {
             setName('');
             setDescription('');
             setImage(null);
+            await fetchQuiz();
         } else {
             toast.error(res.EM)
         }
@@ -98,8 +130,25 @@ const ManageQuiz = (props) => {
             </Accordion>
 
             <div className="list-detail">
-                <TableQuiz />
+                <TableQuiz
+                    listQuiz={listQuiz}
+                    fetchQuiz={fetchQuiz}
+                    handleClickEditQuiz={handleClickEditQuiz}
+                    handleClickDeleteQuiz={handleClickDeleteQuiz} />
             </div>
+            <ModalEditQuiz
+                dataQuizUpdate={dataQuizUpdate}
+                show={showEditModal}
+                setShow={setShowEditModal}
+                fetchQuiz={fetchQuiz}
+                resetUpdateQuiz={resetUpdateQuiz}></ModalEditQuiz>
+            <ModalDeleteQuiz
+                dataQuizDelete={dataQuizDelete}
+                show={showDeleteModal}
+                setShow={setShowDeleteModal}
+                fetchQuiz={fetchQuiz}>
+
+            </ModalDeleteQuiz>
         </div>
     )
 }

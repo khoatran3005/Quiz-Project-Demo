@@ -1,25 +1,19 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { deleteUser } from '../../../service/apiService';
 import { toast } from 'react-toastify';
+import { deleteQuiz } from '../../../../service/apiService';
 
-const ModalDeleteUser = (props) => {
-    const { show, setShow, dataDelete } = props;
-    console.log(dataDelete)
+const ModalDeleteQuiz = (props) => {
+    const { show, setShow, dataQuizDelete } = props;
 
     const handleClose = () => setShow(false);
-    const handleSubmitDeleteUser = async() => {
-        let data = await deleteUser(dataDelete)
+    const handleSubmitDeleteQuiz = async() => {
+        let data = await deleteQuiz(dataQuizDelete)
         if (data && data.EC === 0) {
             toast.success(data.EM);
             handleClose();
-            props.setCurrentPage(1);
-            await props.fetchListUsersWithPaginate(1);
-        }
-
-        if (data && data.EC !== 0) {
-            toast.error("The email is already exis");
+            await props.fetchQuiz();
         }
     }
 
@@ -33,13 +27,13 @@ const ModalDeleteUser = (props) => {
                 <Modal.Header closeButton>
                     <Modal.Title>Confirm Delete the User</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Are you sure to deleta this user. <b>Email
-                    {dataDelete && dataDelete.email ? dataDelete.email : ""}</b></Modal.Body>
+                <Modal.Body>Are you sure to deleta this quiz. Quiz<b> id:
+                    {dataQuizDelete && dataQuizDelete.id ? dataQuizDelete.id : ""}</b></Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Cancel
                     </Button>
-                    <Button variant="primary" onClick={handleSubmitDeleteUser}>
+                    <Button variant="primary" onClick={handleSubmitDeleteQuiz}>
                         Confirm
                     </Button>
                 </Modal.Footer>
@@ -48,4 +42,4 @@ const ModalDeleteUser = (props) => {
     );
 }
 
-export default ModalDeleteUser;
+export default ModalDeleteQuiz;
