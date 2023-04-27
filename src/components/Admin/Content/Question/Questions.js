@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Select from 'react-select';
 import './Questions.scss'
 import { BiMinusCircle, BiPlusCircle } from "react-icons/bi";
@@ -7,14 +7,13 @@ import { RiImageAddFill } from "react-icons/ri";
 import { v4 as uuidv4 } from 'uuid';
 import _ from "lodash"
 import Lightbox from "react-awesome-lightbox";
+import { getAllQuizForAdmin, postCreateNewAnswerForQuestion, postCreateNewQuestionForQuiz } from "../../../../service/apiService"
+
 
 const Questions = () => {
-    const options = [
-        { value: 'chocolate', label: 'Chocolate' },
-        { value: 'strawberry', label: 'Strawberry' },
-        { value: 'vanilla', label: 'Vanilla' },
-    ];
 
+    const [isPreviewImage, setIsPreviewImage] = useState(false);
+    const [selectedQuiz, setSelectedQuiz] = useState('');
     const [questions, setQuestions] = useState(
         [
             {
@@ -32,11 +31,30 @@ const Questions = () => {
             }
         ]
     );
-
-    const [dataImagePreview,setDataImagePreview] = useState({
-        title:'',
-        url:''
+    const [dataImagePreview, setDataImagePreview] = useState({
+        title: '',
+        url: ''
     })
+    const [listQuiz, setListQuiz] = useState([]);
+
+    const fetchQuiz = async () => {
+        let res = await getAllQuizForAdmin();
+        if (res && res.EC === 0) {
+            let newQuiz = res.DT.map(item => {
+                return {
+                    value: item.id,
+                    label: `${item.id} - ${item.description}`
+                }
+            })
+            setListQuiz(newQuiz)
+        }
+    }
+
+    console.log('list quiz', listQuiz)
+
+    useEffect(() => {
+        fetchQuiz();
+    }, [])
 
     const handleAddRemoveQuestion = (type, id) => {
         console.log('check', type, id)
@@ -133,21 +151,25 @@ const Questions = () => {
         let index = questionsClone.findIndex(item => item.id === questionId);
         if (index > -1) {
             setDataImagePreview({
-                url:URL.createObjectURL(questionsClone[index].imageFile),
-                title:questionsClone[index].imageName
+                url: URL.createObjectURL(questionsClone[index].imageFile),
+                title: questionsClone[index].imageName
             })
             setIsPreviewImage(true);
         }
     }
 
-    const handleSubmitQuestionForQuiz = () => {
-        console.log('ques', questions);
+    const handleSubmitQuestionForQuiz = async() => {
+        //todo
+        //validate data
+        await Promise.all(questions.map(async (question) => {
+            const q = await postCreateNewQuestionForQuiz(+selectedQuiz.value, question.description, question.imageFile);
+            await Promise.all(question.answers.map(async (answer) => {
+                await postCreateNewAnswerForQuestion(answer.description, answer.isCorrect, q.DT.id)
+            }))
+        }));
     }
 
-    const [isPreviewImage, setIsPreviewImage] = useState(false);
 
-
-    const [selectedQuiz, setSelectedQuiz] = useState('');
     return (
         <div className="question-container">
             <div className="title">
@@ -160,7 +182,7 @@ const Questions = () => {
                     <Select
                         value={selectedQuiz}
                         onChange={setSelectedQuiz}
-                        options={options}
+                        options={listQuiz}
                     />
                 </div>
 
