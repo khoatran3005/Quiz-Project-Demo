@@ -1,6 +1,6 @@
-import { useState } from 'react';
 import './ManageQuiz.scss';
 import Select from 'react-select';
+import { useState } from 'react';
 import { postCreateNewQuiz } from '../../../../service/apiService'
 import { toast } from 'react-toastify';
 import TableQuiz from './TableQuiz';
@@ -8,6 +8,8 @@ import Accordion from 'react-bootstrap/Accordion';
 import ModalEditQuiz from './ModalEditQuiz';
 import ModalDeleteQuiz from './ModalDeleteQuiz';
 import { getAllQuizForAdmin } from "../../../../service/apiService"
+import QuizQA from './QuizQA';
+import AssignQuiz from './AssignQuiz';
 
 
 const options = [
@@ -125,17 +127,30 @@ const ManageQuiz = (props) => {
                                 </div>
                             </fieldset>
                         </div>
+                        <div className="list-detail">
+                            <TableQuiz
+                                listQuiz={listQuiz}
+                                fetchQuiz={fetchQuiz}
+                                handleClickEditQuiz={handleClickEditQuiz}
+                                handleClickDeleteQuiz={handleClickDeleteQuiz} />
+                        </div>
+                    </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="1">
+                    <Accordion.Header>Update Q/A Quiz</Accordion.Header>
+                    <Accordion.Body>
+                        <QuizQA/>
+                    </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="2">
+                    <Accordion.Header>Assign to users</Accordion.Header>
+                    <Accordion.Body>
+                        <AssignQuiz/>
                     </Accordion.Body>
                 </Accordion.Item>
             </Accordion>
 
-            <div className="list-detail">
-                <TableQuiz
-                    listQuiz={listQuiz}
-                    fetchQuiz={fetchQuiz}
-                    handleClickEditQuiz={handleClickEditQuiz}
-                    handleClickDeleteQuiz={handleClickDeleteQuiz} />
-            </div>
+
             <ModalEditQuiz
                 dataQuizUpdate={dataQuizUpdate}
                 show={showEditModal}
