@@ -9,7 +9,7 @@ import _ from "lodash"
 import Lightbox from "react-awesome-lightbox";
 import {
     getAllQuizForAdmin, postCreateNewAnswerForQuestion,
-    postCreateNewQuestionForQuiz, getQuizWithQA
+    postCreateNewQuestionForQuiz, getQuizWithQA, postUpsertQA
 } from "../../../../service/apiService"
 import { toast } from 'react-toastify';
 
@@ -233,19 +233,32 @@ const QuizQA = (props) => {
             return;
         }
 
-        //validate date
-        for (const question of questions) {
-            const q = await postCreateNewQuestionForQuiz(+selectedQuiz.value, question.description, question.imageFile);
-            for (const answer of question.answers) {
-                await postCreateNewAnswerForQuestion(answer.description, answer.isCorrect, q.DT.id);
+        const toBase64 = file => new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = reject;
+        });
+
+        let questionClone = _.cloneDeep(questions);
+        console.log('questionClone',questionClone);
+        for (let i = 0; i < questionClone.length; i++) {
+            if(questionClone[i].imageFile) {
+                questionClone[i].imageFile = await toBase64(questionClone[i].imageFile)
             }
-        };
+        }
+        let res = await postUpsertQA({
+            quizId: selectedQuiz.value,
+            questions: questionClone,
+        });
 
-        toast.success('Create questions and answers succed!');
-        setQuestions(initQuestions);
+        if (res && res.EC === 0) {
+            toast.success('Create questions and answers succed!');
+            fetchQuizWithQA();
+        }
+        
     }
-
-
+    
     return (
         <div className="question-container">
             <div className="add-new-question">
