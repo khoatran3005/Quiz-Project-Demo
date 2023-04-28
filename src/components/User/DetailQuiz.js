@@ -7,6 +7,7 @@ import Question from "./Question";
 import { useState } from "react";
 import { Modal } from "bootstrap";
 import ModelResult from "./ModelResult";
+import RightContent from "./Content/RightContent";
 
 const DetailQuiz = (props) => {
     const params = useParams();
@@ -75,8 +76,8 @@ const DetailQuiz = (props) => {
         console.log('gg', res)
         if (res && res.EC === 0) {
             setDataModalResult({
-                countCorrect:res.DT.countCorrect,
-                countTotal:res.DT.countTotal,
+                countCorrect: res.DT.countCorrect,
+                countTotal: res.DT.countTotal,
                 quizData: res.DT.quizData
             })
             setIsShowModalResult(true);
@@ -147,7 +148,8 @@ const DetailQuiz = (props) => {
                 </div>
             </div>
             <div className="right-container">
-                count down
+                <RightContent
+                    dataQuiz={dataQuiz} />
             </div>
             <ModelResult
                 show={isShowModalResult}

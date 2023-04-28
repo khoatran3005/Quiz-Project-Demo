@@ -7,7 +7,6 @@ const ModelResult = (props) => {
 
     const handleClose = () => setShow(false);
 
-    console.log('adc',dataModalResult)  
     return (
         <>
             <Modal
