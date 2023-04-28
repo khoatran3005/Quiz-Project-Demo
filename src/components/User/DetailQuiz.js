@@ -134,7 +134,7 @@ const DetailQuiz = (props) => {
                         index={index}
                         data={dataQuiz && dataQuiz.length > 0 ? dataQuiz[index] : []}></Question>
                 </div>
-                <div className="footer">
+                <div className="footer mb-4">
                     <button
                         className="btn btn-secondary"
                         onClick={() => handlePrev()}>Prev</button>
