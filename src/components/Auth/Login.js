@@ -38,6 +38,7 @@ const Login = (props) => {
         setIsLoading(true);
         //sumbit apis
         let data = await postLogin(email, password);
+        console.log('login',data)
         if (data && data.EC === 0) {
             dispatch(doLogin(data))
             toast.success(data.EM);
@@ -48,6 +49,12 @@ const Login = (props) => {
         if (data && +data.EC !== 0) {
             toast.error(data.EM);
             setIsLoading(false);
+        }
+    }
+
+    const handleKeyDown = (event) => {
+        if (event && event.key === "Enter") {
+            handleLogin();
         }
     }
 
@@ -71,6 +78,7 @@ const Login = (props) => {
                         className='form-control'
                         value={email}
                         onChange={(event) => setEmail(event.target.value)}
+                        onKeyDown={(event) => handleKeyDown(event)}
                     />
                 </div>
                 <div className='form-group'>
@@ -80,6 +88,7 @@ const Login = (props) => {
                         className='form-control'
                         value={password}
                         onChange={(event) => setPassword(event.target.value)}
+                        onKeyDown={(event) => handleKeyDown(event)}
                     />
                 </div>
                 <span>Forgot password</span>
