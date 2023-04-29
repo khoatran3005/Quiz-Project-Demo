@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../service/apiService';
 import { toast } from 'react-toastify';
 import { doLogout } from '../../redux/action/userAction';
+import Languages from './Languages';
 
 const Header = () => {
 
@@ -28,7 +29,7 @@ const Header = () => {
     if (res && res.EC === 0) {
       dispatch(doLogout())
       navigate('/login');
-      
+
     } else {
       toast.error(res.EM);
     }
@@ -58,6 +59,8 @@ const Header = () => {
                 <NavDropdown.Item onClick={() => handleLogOut()}>Log out</NavDropdown.Item>
               </NavDropdown>
             }
+            <Languages/>
+            
           </Nav>
         </Navbar.Collapse>
       </Container>

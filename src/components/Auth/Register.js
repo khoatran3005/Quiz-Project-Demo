@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { postRegister } from '../../service/apiService';
 import { toast } from 'react-toastify';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
+import Languages from '../Header/Languages';
 
 const Register = (props) => {
     const [email, setEmail] = useState('');
@@ -57,6 +58,7 @@ const Register = (props) => {
             <div className='header'>
                 <span>Already have an account?</span>
                 <button onClick={() => { navigate('/login') }}>Login</button>
+                <Languages/>
             </div>
             <div className='title col-4 mx-auto'>
                 Hoi Khoa Dep Trai
