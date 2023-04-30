@@ -110,7 +110,7 @@ const DetailQuiz = (props) => {
                         item.answers.isSelected = false;
                         answers.push(item.answers)
                     })
-
+                    answers = _.orderBy(answers, ['id'], ['asc']);
                     return (
                         { questionId: key, answers, questionDescription, image }
                     )
@@ -150,8 +150,8 @@ const DetailQuiz = (props) => {
             <div className="right-container">
                 <RightContent
                     dataQuiz={dataQuiz}
-                    handleFinish={handleFinish} 
-                    setIndex={setIndex}/>
+                    handleFinish={handleFinish}
+                    setIndex={setIndex} />
             </div>
             <ModelResult
                 show={isShowModalResult}

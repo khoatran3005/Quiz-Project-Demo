@@ -25,7 +25,7 @@ const HomePage = () => {
                     {isAuthenticated === false ?
                     < button onClick={()=> navigate('/login')}>{t('homepage.title3.login')}</button>
                     :
-                    <button onClick={()=> navigate('/users')}>{t('homepage.title3.user')}</button>
+                    <button onClick={()=> navigate('/users')}>{t('homepage.title3.users')}</button>
                     }
             </div>
         </div>
