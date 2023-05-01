@@ -16,7 +16,11 @@
             "profile":"Profile",
             "logout":"Log out",
             "setting":"Setting",
-            "doquiz":"Do Quiz"
+            "doquiz":"Do Quiz",
+            "current-p":"Current Password",
+            "new-p":"New Password",
+            "up-profile":"Update Profile",
+            "up-pass":"Update Password"
         },
         "login": {
             "corner":"Don't have an account yet?",

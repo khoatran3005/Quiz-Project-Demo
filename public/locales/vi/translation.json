@@ -16,7 +16,11 @@
             "profile":"Hồ sơ",
             "logout":"Đăng suất",
             "setting":"Cài đặt",
-            "doquiz":"Làm bài thi"
+            "doquiz":"Làm bài thi",
+            "current-p":"Mật khẩu hiện tại",
+            "new-p":"Mật khẩu mới",
+            "up-profile":"Cập nhật hồ sơ",
+            "up-pass":"Cập nhật mật khẩu"
         },
         "login": {
             "corner":"Bạn chưa có tài khoản sao?",

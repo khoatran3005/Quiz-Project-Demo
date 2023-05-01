@@ -123,6 +123,19 @@ const getOverview = () => {
     return axios.get(`api/v1/overview`)
 }
 
+const postUpdateProfile = (username,userImage) => {
+    const data = new FormData();
+    data.append('username', username);
+    data.append('userImage', userImage);
+    return axios.post('api/v1/profile', data); 
+}
+
+const postChangePassword = (current_password, new_password) => {
+    return axios.post(`api/v1/change-password`, {
+        current_password, new_password
+    })
+}
+
 export {
     postCreateNewUser, getAllUsers,
     postUpdateUser, deleteUser, getUserWithPaginate,
@@ -130,5 +143,5 @@ export {
     postSubmitQuiz,postCreateNewQuiz,getAllQuizForAdmin,
     deleteQuiz,putUpdateQuiz, postCreateNewQuestionForQuiz,
     postCreateNewAnswerForQuestion, postAssignQuiz,getQuizWithQA,
-    postUpsertQA, logout, getOverview
+    postUpsertQA, logout, getOverview,postUpdateProfile, postChangePassword
 }
