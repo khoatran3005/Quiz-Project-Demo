@@ -121,5 +121,12 @@
             "up-title":"Cập nhật một bài thi",
             "de-title":"Xác nhận xóa bài thi",
             "confirm-d":"Bạn có chắc là muốn xóa bài thi này. Quiz "
+        },
+        "history":{
+            "title":"Lịch sử",
+            "name": "Tên bài thi",
+            "t-ques":"Tổng câu hỏi",
+            "t-correct":"Tổng câu trả lời đúng",
+            "date":"Ngày"
         }
     }

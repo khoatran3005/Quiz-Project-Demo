@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import { useTranslation, Trans } from 'react-i18next';
 
 const ModelResult = (props) => {
-    const { show, setShow, dataModalResult } = props;
+    const { show, setShow, dataModalResult, handleShowAnswer } = props;
     const { t } = useTranslation();
 
     const handleClose = () => setShow(false);
@@ -24,7 +24,10 @@ const ModelResult = (props) => {
                     <div>{t('user.correct')}<b>{dataModalResult !== undefined ? dataModalResult.countCorrect : ''}</b></div>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
+                    <Button variant="secondary" onClick={() => {
+                        handleClose();
+                        props.handleShowAnswer();
+                    }}>
                         {t('user.show')}
                     </Button>
                     <Button variant="primary" onClick={handleClose}>

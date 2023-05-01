@@ -121,5 +121,12 @@
             "up-title":"Update a quiz",
             "de-title":"Confirm Delete the Quizz",
             "confirm-d":"Are you sure to deleta this quiz. Quiz"
+        },
+        "history":{
+            "title":"History",
+            "name": "Quiz Name",
+            "t-ques":"Total Questions",
+            "t-correct":"Total Correct",
+            "date":"Date"
         }
 }

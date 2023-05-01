@@ -3,11 +3,12 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { FcPlus } from 'react-icons/fc';
 import { toast } from 'react-toastify';
-import { postUpdateProfile, postChangePassword } from '../../service/apiService';
+import { postUpdateProfile, postChangePassword, getHistory } from '../../service/apiService';
 import _ from 'lodash';
 import { useTranslation, Trans } from 'react-i18next';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
+import moment from 'moment';
 
 const Profile = (props) => {
     const { show, setShow, account } = props;
@@ -17,7 +18,7 @@ const Profile = (props) => {
         setShow(false);
         setKey('profile');
     }
-
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [username, setUsername] = useState('');
@@ -29,9 +30,11 @@ const Profile = (props) => {
         image: image
     }
     const [key, setKey] = useState('profile');
+    const [listHistory, setListHistory] = useState([]);
 
     useEffect(() => {
         if (!_.isEmpty(account)) {
+            setEmail(account.email)
             setPassword(account.password);
             setUsername(account.username);
             setRole(account.role);
@@ -42,11 +45,14 @@ const Profile = (props) => {
         }
     }, [account]);
 
+    useEffect(() => {
+        fetchHistory();
+    }, [])
+
     const handleUploadImage = (event) => {
         if (event.target && event.target.files && event.target.files[0]) {
             setpreviewImage(URL.createObjectURL(event.target.files[0]))
             setImage(event.target.files[0])
-            console.log('pre', previewImage, 'img', image)
         }
     }
 
@@ -67,7 +73,7 @@ const Profile = (props) => {
     }
 
     const handleSubmitPassword = async () => {
-        let data = await postChangePassword (password , newPassword)
+        let data = await postChangePassword(password, newPassword)
         if (data && data.EC === 0) {
             toast.success(data.EM);
             handleClose();
@@ -76,6 +82,28 @@ const Profile = (props) => {
             toast.error(data.EM);
         }
     }
+
+    const fetchHistory = async () => {
+        let data = await getHistory();
+        if (data && data.EC === 0) {
+            let newData = data?.DT?.data.map((item) => {
+                return {
+                    id: item.id,
+                    quiz_id: item.quiz_id,
+                    total_questions: item.total_questions,
+                    total_correct: item.total_correct,
+                    date: moment(item.updatedAt).utc().format('DD/MM/YYYY hh:mm:ss A')
+                }
+            })
+            if (newData && newData.length > 7) {
+                newData = newData.slice(newData.length - 7, newData.length);
+            }
+            setListHistory(newData);
+        }
+
+    }
+    console.log('history', listHistory);
+
 
     return (
         <>
@@ -87,7 +115,7 @@ const Profile = (props) => {
                 className='modal-add-user'
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>{key === 'profile'?`${t('header.up-profile')}` : `${t('header.up-pass')}`}</Modal.Title>
+                    <Modal.Title>{key === 'profile' ? `${t('header.up-profile')}` : key === 'password'? `${t('header.up-pass')}`: `${t('history.title')}`}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Tabs
@@ -105,6 +133,24 @@ const Profile = (props) => {
                                         value={username}
                                         onChange={(event) => setUsername(event.target.value)}
                                     />
+                                </div>
+                                <div className="col-md-6">
+                                    <label className="form-label">Email</label>
+                                    <input
+                                        type="email"
+                                        className="form-control"
+                                        value={email}
+                                        disabled
+                                        onChange={(event) => setEmail(event.target.value)}
+                                    />
+                                </div>
+                                <div className="col-md-4">
+                                    <label className="form-label">{t('m-user.role')}</label>
+                                    <select className="form-select" onChange={(event) => setRole(event.target.value)}
+                                        value={role} disabled>
+                                        <option value="USER">{t('m-user.role-u')}</option>
+                                        <option value="ADMIN">{t('m-user.role-a')}</option>
+                                    </select>
                                 </div>
                                 <div className='col-md-12'>
                                     <label className='form-label label-upload' htmlFor='labaluploadfile'><FcPlus /> {t('m-user.upload')}</label>
@@ -142,6 +188,40 @@ const Profile = (props) => {
                                 </div>
                             </form>
                         </Tab>
+                        <Tab eventKey="history" title={t('history.title')}>
+                            <table className="table table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">{t('history.name')}</th>
+                                        <th scope="col">{t('history.t-ques')}</th>
+                                        <th scope="col">{t('history.t-correct')}</th>
+                                        <th scope="col">{t('history.date')}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {listHistory && listHistory.length > 0 &&
+                                        listHistory.map((item, index) => {
+                                            return (
+                                                <tr key={`table-users-${index}`}>
+                                                    <th scope="row">{item.id}</th>
+                                                    <td>{item.quiz_id}</td>
+                                                    <td>{item.total_questions}</td>
+                                                    <td>{item.total_correct}</td>
+                                                    <td>{item.date}</td>
+                                                </tr>
+                                            )
+                                        })
+                                    }
+                                    {listHistory && listHistory.length === 0 &&
+                                        <tr>
+                                            <td colSpan={'5'}>{t('m-user.not')}</td>
+                                        </tr>}
+
+                                </tbody>
+                            </table>
+                        </Tab>
+                        
                     </Tabs>
 
                 </Modal.Body>
@@ -149,9 +229,18 @@ const Profile = (props) => {
                     <Button variant="secondary" onClick={handleClose}>
                         {t('m-user.close')}
                     </Button>
-                    <Button variant="primary" onClick={handleSubmitPassword}>
-                        {t('m-user.save')}
-                    </Button>
+                    {key === "profile" ?
+                        <Button variant="primary" onClick={handleSubmitProfile}>
+                            {t('m-user.save')}
+                        </Button>
+                        :
+                        key === "password" 
+                        ?
+                        <Button variant="primary" onClick={handleSubmitPassword}>
+                            {t('m-user.save')}
+                        </Button>
+                        :
+                        ""}
                 </Modal.Footer>
             </Modal>
         </>

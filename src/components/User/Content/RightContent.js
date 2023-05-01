@@ -7,7 +7,7 @@ const RightContent = (props) => {
 
     const { dataQuiz } = props;
     const onTimeUp = () => {
-        props.handleFinish();
+        props.handleFinishQuiz();
     }
 
     const getClassQuestion = (index, question) => {
