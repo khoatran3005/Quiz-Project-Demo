@@ -7,10 +7,9 @@ import { RiImageAddFill } from "react-icons/ri";
 import { v4 as uuidv4 } from 'uuid';
 import _ from "lodash"
 import Lightbox from "react-awesome-lightbox";
-import { getAllQuizForAdmin, postCreateNewAnswerForQuestion, postCreateNewQuestionForQuiz } from "../../../../service/apiService"
+import { getAllQuizForAdmin, postCreateNewAnswerForQuestion, postCreateNewQuestionForQuiz,postUpsertQA,getQuizWithQA } from "../../../../service/apiService"
 import { toast } from 'react-toastify';
 import { useTranslation, Trans } from 'react-i18next';
-
 
 const Questions = () => {
 
@@ -52,11 +51,42 @@ const Questions = () => {
         }
     }
 
-    console.log('list quiz', listQuiz)
-
     useEffect(() => {
         fetchQuiz();
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        if (selectedQuiz && selectedQuiz.value) {
+            fetchQuizWithQA();
+        }
+    }, [selectedQuiz]);
+
+    //return a promise that resolves with a File instance
+    function urltoFile(url, filename, mimeType) {
+        return (fetch(url)
+            .then(function (res) { return res.arrayBuffer(); })
+            .then(function (buf) { return new File([buf], filename, { type: mimeType }); })
+        );
+    }
+
+    const fetchQuizWithQA = async () => {
+        let res = await getQuizWithQA(selectedQuiz.value);
+        if (res && res.EC === 0) {
+            //convert
+            let newQA = [];
+            for (let i = 0; i < res.DT.qa.length; i++){
+                let q = res.DT.qa[i];
+                if(q.imageFile) {
+                    q.imageName = `Question-${q.id}.png`;
+                    q.imageFile =  await urltoFile(`data:image/pns;base64,${q.imageFile}`, `Question-${q.id}.png`,`image/png`)               
+                }
+                newQA.push(q);
+            }
+            setQuestions(newQA);
+            console.log('check QA', newQA);
+        }
+
+    }
 
     const handleAddRemoveQuestion = (type, id) => {
         console.log('check', type, id)
@@ -202,25 +232,34 @@ const Questions = () => {
             return;
         }
 
-        //validate date
-        for (const question of questions) {
-            const q = await postCreateNewQuestionForQuiz(+selectedQuiz.value, question.description, question.imageFile);
-            for (const answer of question.answers) {
-                await postCreateNewAnswerForQuestion(answer.description, answer.isCorrect, q.DT.id);
+        const toBase64 = file => new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = reject;
+        });
+
+        let questionClone = _.cloneDeep(questions);
+        console.log('questionClone',questionClone);
+        for (let i = 0; i < questionClone.length; i++) {
+            if(questionClone[i].imageFile) {
+                questionClone[i].imageFile = await toBase64(questionClone[i].imageFile)
             }
-        };
+        }
+        let res = await postUpsertQA({
+            quizId: selectedQuiz.value,
+            questions: questionClone,
+        });
 
-        toast.success('Create questions and answers succed!');
-        setQuestions(initQuestions);
+        if (res && res.EC === 0) {
+            toast.success('Create questions and answers succed!');
+            fetchQuizWithQA();
+        }
+        
     }
-
-
+    
     return (
         <div className="question-container">
-            <div className="title">
-            {t('question.title')}
-            </div>
-            <hr />
             <div className="add-new-question">
                 <div className='col-6 form-group'>
                     <label className='mb-2'> {t('question.select')}</label>
@@ -262,7 +301,7 @@ const Questions = () => {
                                         <span>{question.imageName ?
                                             <span onClick={() => handlePreviewImage(question.id)} >{question.imageName}</span>
                                             :
-                                            '0 file is uploaded'
+                                            `${t('question.no-up')}`
                                         }</span>
                                     </div>
                                     <div className='btn-add'>
