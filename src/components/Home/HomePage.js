@@ -6,7 +6,7 @@ import { useTranslation, Trans } from 'react-i18next';
 const HomePage = () => {
     const isAuthenticated = useSelector(state => state.user.isAuthenticated)
     const navigate = useNavigate();
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
 
     return (
         <div className="homepage-container">

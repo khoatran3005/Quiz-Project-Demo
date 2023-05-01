@@ -13,9 +13,11 @@ import sidebarBg from '../../assets/bg2.jpg';
 import { DiReact } from "react-icons/di";
 import { MdDashboard } from "react-icons/md";
 import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation, Trans } from 'react-i18next';
 
 const SideBar = (props) => {
     const { image, collapsed, toggled, handleToggleSidebar } = props;
+    const { t } = useTranslation();
 
     const navigate = useNavigate();
     return (
@@ -41,7 +43,7 @@ const SideBar = (props) => {
                         }}
                     >
                         <DiReact size="3em" color='#00bfff'></DiReact>
-                        <span onClick={() => navigate('/')}>Hoi Dan It</span>
+                        <span onClick={() => navigate('/')}>Quiz With Khoa </span>
                     </div>
                 </SidebarHeader>
 
@@ -50,17 +52,17 @@ const SideBar = (props) => {
                         <MenuItem
                             icon={<MdDashboard />}
                         >
-                            Dashboard<Link to="/admin" />
+                            {t('admin.dashboard')}<Link to="/admin" />
                         </MenuItem>
                     </Menu>
                     <Menu iconShape="circle">
                         <SubMenu
                             icon={<FaGem />}
-                            title="Features"
+                            title={t('admin.features')}
                         >
-                            <MenuItem>Users Management<Link to="/admin/manage-users" /></MenuItem>
-                            <MenuItem>Quiz Management<Link to="/admin/manage-quiz" /></MenuItem>
-                            <MenuItem>Question Management<Link to="/admin/manage-questions" /></MenuItem>
+                            <MenuItem>{t('admin.u-management')}<Link to="/admin/manage-users" /></MenuItem>
+                            <MenuItem>{t('admin.q-management')}<Link to="/admin/manage-quiz" /></MenuItem>
+                            <MenuItem>{t('admin.qe-anagement')}<Link to="/admin/manage-questions" /></MenuItem>
                         </SubMenu>
                     </Menu>
                 </SidebarContent>

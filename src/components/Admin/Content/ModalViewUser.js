@@ -5,9 +5,11 @@ import { FcPlus } from 'react-icons/fc';
 import { toast } from 'react-toastify';
 import { postUpdateUser } from '../../../service/apiService';
 import _ from 'lodash';
+import { useTranslation, Trans } from 'react-i18next';
 
 const ModalViewUser = (props) => {
     const { show, setShow, dataUpdate } = props;
+    const { t } = useTranslation();
 
     const handleClose = () => {
         setShow(false);
@@ -55,34 +57,8 @@ const ModalViewUser = (props) => {
             );
     };
 
-    // const handleSubmitCreateUser = async () => {
-
-    //     const isValidEmail = validateEmail(email);
-    //     if (!isValidEmail) {
-    //         toast.error("Invalid email");
-    //         return;
-    //     }
-
-    //     let data = await postUpdateUser(dataUpdate.id, username, role, image)
-    //     if (data && data.EC === 0) {
-    //         toast.success(data.EM);
-    //         handleClose();
-    //         await props.fetchListUsers();
-    //     }
-
-    //     if (data && data.EC !== 0) {
-    //         toast.error("The email is already exis");
-    //     }
-
-
-    // }
-
     return (
         <>
-            {/* <Button variant="primary" onClick={handleShow}>
-                Launch demo modal
-            </Button> */}
-
             <Modal
                 show={show}
                 onHide={handleClose}
@@ -91,7 +67,7 @@ const ModalViewUser = (props) => {
                 className='modal-add-user'
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>View a user</Modal.Title>
+                    <Modal.Title>{t('m-user.title-v')}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form className="row g-3">
@@ -106,7 +82,7 @@ const ModalViewUser = (props) => {
                             />
                         </div>
                         <div className="col-md-6">
-                            <label className="form-label">Password</label>
+                            <label className="form-label">{t('m-user.password')}</label>
                             <input
                                 type="password"
                                 className="form-control"
@@ -116,7 +92,7 @@ const ModalViewUser = (props) => {
                             />
                         </div>
                         <div className="col-md-6">
-                            <label className="form-label">Username</label>
+                            <label className="form-label">{t('m-user.username')}</label>
                             <input type="text"
                                 className="form-control"
                                 value={username}
@@ -125,16 +101,16 @@ const ModalViewUser = (props) => {
                             />
                         </div>
                         <div className="col-md-4">
-                            <label className="form-label">Role</label>
+                            <label className="form-label">{t('m-user.role')}</label>
                             <select className="form-select" onChange={(event) => setRole(event.target.value)}
                                 value={role}
                                 disabled>
-                                <option value="USER">USER</option>
-                                <option value="ADMIN">ADMIN</option>
+                                <option value="USER">{t('m-user.role-u')}</option>
+                                <option value="ADMIN">{t('m-user.role-a')}</option>
                             </select>
                         </div>
                         <div className='col-md-12'>
-                            <label className='form-label label-upload' htmlhtmlFor='labaluploadfile'><FcPlus /> Upload File Image</label>
+                            <label className='form-label label-upload' htmlhtmlFor='labaluploadfile'><FcPlus /> {t('m-user.upload')}</label>
                             <input type='file'
                                 id='labaluploadfile'
                                 hidden
@@ -145,14 +121,14 @@ const ModalViewUser = (props) => {
                             {previewImage ?
                                 <img src={previewImage} />
                                 :
-                                <span>Preview Image</span>
+                                <span>{t('m-user.preview')}</span>
                             }
                         </div>
                     </form>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Close
+                        {t('m-user.close')}
                     </Button>
                     {/* <Button variant="primary" onClick={handleSubmitCreateUser}>
                         Save

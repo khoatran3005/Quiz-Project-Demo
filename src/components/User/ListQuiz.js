@@ -2,12 +2,15 @@ import { useEffect, useState } from "react";
 import { getQuizByUser } from "../../service/apiService";
 import './ListQuiz.scss'
 import { useNavigate } from "react-router-dom";
+import { useTranslation, Trans } from 'react-i18next';
 
 const ListQuiz = (props) => {
     const [arrayQuiz, setArrayQuiz] = useState([]);
     useEffect(() => {
         getQuizData();
     }, [])
+
+    const { t } = useTranslation();
 
     const navigate = useNavigate();
 
@@ -31,7 +34,7 @@ const ListQuiz = (props) => {
                                 <button 
                                 className="btn btn-primary"
                                 onClick={()=> navigate(`/quiz/${quiz.id}`, {state: {quizTitle: quiz.description}})}
-                                >Start Now</button>
+                                >{t('user.button')}</button>
                             </div>
                         </div>
                     )

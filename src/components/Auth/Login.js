@@ -7,11 +7,13 @@ import { useDispatch } from 'react-redux';
 import { doLogin } from '../../redux/action/userAction';
 import { FaSpinner } from 'react-icons/fa'
 import Languages from '../Header/Languages';
+import { useTranslation, Trans } from 'react-i18next';
 
 const Login = (props) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const { t } = useTranslation();
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -39,7 +41,7 @@ const Login = (props) => {
         setIsLoading(true);
         //sumbit apis
         let data = await postLogin(email, password);
-        console.log('login',data)
+        console.log('login', data)
         if (data && data.EC === 0) {
             dispatch(doLogin(data))
             toast.success(data.EM);
@@ -62,15 +64,15 @@ const Login = (props) => {
     return (
         <div className="login-container">
             <div className='header'>
-                <span>Don't have an account yet?</span>
-                <button onClick={() => { navigate('/register') }}>Sign up</button>
-                <Languages/>
+                <span>{t('login.corner')}</span>
+                <button onClick={() => { navigate('/register') }}>{t('login.signup')}</button>
+                <Languages />
             </div>
             <div className='title col-4 mx-auto'>
-                Hoi Khoa Dep Trai
+                Quiz With Khoa
             </div>
             <div className='welcome col-4 mx-auto'>
-                Hello, who's this?
+                {t('login.title')}
             </div>
             <div className='content-form col-4 mx-auto'>
                 <div className='form-group'>
@@ -84,7 +86,7 @@ const Login = (props) => {
                     />
                 </div>
                 <div className='form-group'>
-                    <label>Password</label>
+                    <label>{t('login.password')}</label>
                     <input
                         type={"password"}
                         className='form-control'
@@ -93,7 +95,7 @@ const Login = (props) => {
                         onKeyDown={(event) => handleKeyDown(event)}
                     />
                 </div>
-                <span>Forgot password</span>
+                <span>{t('login.forgot')}</span>
                 <div>
                     <button
                         className='btn-submit'
@@ -101,10 +103,10 @@ const Login = (props) => {
                         disabled={isLoading}
                     >
                         {isLoading ? <FaSpinner className='loaderIcon' /> : ""}
-                        <span>Login to Hoi Khoa Dep Trai</span></button>
+                        <span>{t('login.submit')}</span></button>
                 </div>
                 <div className='text-center'>
-                    <span className='back' onClick={() => { navigate('/') }}> &lt;&lt;Go to Homepage</span>
+                    <span className='back' onClick={() => { navigate('/') }}> &lt;&lt;{t('login.back')}</span>
                 </div>
             </div>
         </div>

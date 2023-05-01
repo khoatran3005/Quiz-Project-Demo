@@ -1,11 +1,14 @@
 import ReactPaginate from "react-paginate";
 import { useEffect, useState } from "react";
+import { useTranslation, Trans } from 'react-i18next';
 
 const TableUserPaginate = (props) => {
 
   // const [listUsers, setListUsers] = useState([])
 
   const { listUsers, pageCount } = props;
+
+  const { t } = useTranslation();
 
   const handlePageClick = (event) => {
     props.fetchListUsersWithPaginate(+event.selected + 1);
@@ -19,10 +22,10 @@ const TableUserPaginate = (props) => {
         <thead>
           <tr>
             <th scope="col">ID</th>
-            <th scope="col">Username</th>
+            <th scope="col">{t('m-user.username')}</th>
             <th scope="col">Email</th>
-            <th scope="col">Role</th>
-            <th>Action</th>
+            <th scope="col">{t('m-user.role')}</th>
+            <th>{t('m-user.action')}</th>
           </tr>
         </thead>
         <tbody>
@@ -36,11 +39,11 @@ const TableUserPaginate = (props) => {
                   <td>@{item.role}</td>
                   <td>
                     <button className="btn btn-secondary"
-                      onClick={() => props.handleClickBtnView(item)}>View</button>
+                      onClick={() => props.handleClickBtnView(item)}>{t('m-user.view')}</button>
                     <button className="btn btn-warning mx-3"
-                      onClick={() => props.handleClickBtnUpdate(item)}>Update</button>
+                      onClick={() => props.handleClickBtnUpdate(item)}>{t('m-user.update')}</button>
                     <button className="btn btn-danger"
-                      onClick={() => props.handleClickBtnDelete(item)}>Delete</button>
+                      onClick={() => props.handleClickBtnDelete(item)}>{t('m-user.delete')}</button>
                   </td>
                 </tr>
               )
@@ -49,7 +52,7 @@ const TableUserPaginate = (props) => {
 
           {listUsers && listUsers.length === 0 &&
             <tr>
-              <td colSpan={'4'}>Not found data</td>
+              <td colSpan={'4'}>{t('m-user.not')}</td>
             </tr>}
 
         </tbody>

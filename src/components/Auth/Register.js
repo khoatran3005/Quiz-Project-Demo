@@ -5,6 +5,7 @@ import { postRegister } from '../../service/apiService';
 import { toast } from 'react-toastify';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
 import Languages from '../Header/Languages';
+import { useTranslation, Trans } from 'react-i18next';
 
 const Register = (props) => {
     const [email, setEmail] = useState('');
@@ -13,6 +14,8 @@ const Register = (props) => {
     const navigate = useNavigate();
 
     const [isVisible, setVisible] = useState(false);
+
+    const { t } = useTranslation();
 
     const toggle = () => {
         setVisible(!isVisible);
@@ -56,15 +59,15 @@ const Register = (props) => {
     return (
         <div className="register-container">
             <div className='header'>
-                <span>Already have an account?</span>
-                <button onClick={() => { navigate('/login') }}>Login</button>
-                <Languages/>
+                <span>{t('signup.corner')}</span>
+                <button onClick={() => { navigate('/login') }}>{t('signup.login')}</button>
+                <Languages />
             </div>
             <div className='title col-4 mx-auto'>
-                Hoi Khoa Dep Trai
+                Quiz With Khoa
             </div>
             <div className='welcome col-4 mx-auto'>
-                Get better data with conversational forms, surveys, quizzes & more.
+                {t('signup.title')}
             </div>
             <div className='content-form col-4 mx-auto'>
                 <div className='form-group'>
@@ -77,7 +80,7 @@ const Register = (props) => {
                     />
                 </div>
                 <div className='form-group'>
-                    <label>Username</label>
+                    <label>{t('signup.username')}</label>
                     <input
                         type={"username"}
                         className='form-control'
@@ -86,7 +89,7 @@ const Register = (props) => {
                     />
                 </div>
                 <div className='form-group pass-group'>
-                    <label>Password (*)</label>
+                    <label>{t('signup.password')} (*)</label>
                     <input
                         type={!isVisible ? "password" : "text"}
                         className='form-control'
@@ -109,10 +112,10 @@ const Register = (props) => {
                     <button
                         className='btn-submit'
                         onClick={() => handleRegister()}>
-                        Create my new account</button>
+                        {t('signup.submit')}</button>
                 </div>
                 <div className='text-center'>
-                    <span className='back' onClick={() => { navigate('/') }}> &lt;&lt;Go to Homepage</span>
+                    <span className='back' onClick={() => { navigate('/') }}> &lt;&lt;{t('signup.back')}</span>
                 </div>
             </div>
         </div>

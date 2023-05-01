@@ -4,7 +4,118 @@
             "title2": "Bạn không muốn làm một hình thức nhàm chán. Và khán giả của bạn sẽ không trả lời một. Thay vào đó hãy tạo một kiểu chữ—và làm cho mọi người hài lòng.",
             "title3": {
                 "login": "Hãy bắt đầu. Nó miễn phí",
-                "users": "Doing Quiz Now"
+                "users": "Làm bài ngay"
             }
+        },
+        "header": {
+            "home":"Trang chủ",
+            "users":"Người dùng",
+            "admin": "Quản trị",
+            "login":"Đăng Nhập",
+            "signup":"Đăng kí",
+            "profile":"Hồ sơ",
+            "logout":"Đăng suất",
+            "setting":"Cài đặt",
+            "doquiz":"Làm bài thi"
+        },
+        "login": {
+            "corner":"Bạn chưa có tài khoản sao?",
+            "signup":"Đăng kí",
+            "title":"Xin chào bạn!!!",
+            "password":"Mật khẩu",
+            "forgot":"Quên mật khẩu",
+            "submit":"Đăng nhập vào Quiz With Khoa",
+            "back":"Trở lại trang chủ"
+        },
+        "signup": {
+            "corner":"Bạn đã có tài khoản rồi?",
+            "login": "Đăng nhập",
+            "title":"Nhận dữ liệu tốt hơn với các hình thức đàm thoại, khảo sát, câu đố và hơn thế nữa.",
+            "username":"Tên đăng nhập",
+            "password":"Mật khẩu",
+            "submit":"Tạo tài khoản mới",
+            "back":"Trở lại trang chủ"
+        },
+        "user": {
+            "button": "Bắt đầu ngay",
+            "prev": "Lùi",
+            "next":"Tiến",
+            "finish":"Nộp bài",
+            "question":"Câu hỏi",
+            "result-title":"Kết quả của bạn",
+            "total-q":"Tổng câu hỏi: ",
+            "correct":"Tổng câu trả lời chính xác: ",
+            "show":"Hiện câu trả lời",
+            "close":"Đóng"
+        },
+        "admin":{
+            "dashboard":"Bảng điều khiển",
+            "u-management":"Quản lý người dùng",
+            "q-management":"Quản lý bài thi",
+            "qe-anagement":"Quản lý câu hỏi",
+            "features":"Đặc Trưng",
+            "title-db":"Thống kê bảng điều khiển",
+            "user":"Tổng người dùng",
+            "quizzes":"Tổng bài thi",
+            "questions":"Tổng câu hỏi",
+            "answers":"Tổng câu trả lời"
+        },
+        "m-user": {
+            "title":"Quản lí người dùng",
+            "add":"Thêm người dùng mới",
+            "password":"Mật khẩu",
+            "username":"Tên đăng nhập",
+            "role":"Vai trò",
+            "role-u":"NGƯỜI DÙNG",
+            "role-a":"QUẢN TRỊ",
+            "upload":"Tải lên tệp hình ảnh",
+            "preview":"Xem trước hình ảnh",
+            "close":"Đóng",
+            "save": "Lưu",
+            "action":"Hành động",
+            "view":"Xem",
+            "update":"Cập nhật",
+            "delete":"Xóa",
+            "not":"Không tìm thấy dữ liệu",
+            "title-d":"Xác nhận xóa người dùng",
+            "confirm":"Bạn có chắc là muốn xóa người dùng này không?",
+            "cancel":"Hủy",
+            "confirm-b":"Xác nhận",
+            "title-v":"Xem người dùng",
+            "title-u":"Cập nhật người dùng"
+        },
+        "question": {
+            "title":"Quản lý câu hỏi",
+            "select":"Chọn bài thi",
+            "select-u":"Chọn người dùng",
+            "add":"Thêm câu hỏi",
+            "q":"Câu hỏi ",
+            "des":"miêu tả",
+            "answer":"Câu trả lời",
+            "save":"Lưu câu hỏi",
+            "no-up":"0 tệp được tải lên",
+            "as":"Giao"
+        },
+        "quiz": {
+            "m-quiz":"Quản lý bài thi",
+            "up-quiz":"Cập nhật bài thi",
+            "as-quiz":"Giao bài thi cho người dùng",
+            "add-quiz":"Thêm bài thi mới",
+            "name":"Tên",
+            "des":"Miêu tả",
+            "type":"Loại câu hỏi...",
+            "type-e":"DỄ",
+            "type-m":"TRUNG BÌNH",
+            "type-h":"KHÓ",
+            "up-img":"Tải ảnh lên",
+            "save":"Lưu",
+            "list":"Danh sách câu hỏi",
+            "type-t":"Loại",
+            "edit":"Sửa"
+        },
+        "modal-quiz":{
+            "up-title":"Cập nhật một bài thi",
+            "de-title":"Xác nhận xóa bài thi",
+            "confirm-d":"Bạn có chắc là muốn xóa bài thi này. Quiz "
         }
     }

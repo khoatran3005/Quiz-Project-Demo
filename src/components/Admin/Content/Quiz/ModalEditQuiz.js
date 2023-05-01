@@ -5,9 +5,11 @@ import { FcPlus } from 'react-icons/fc';
 import { toast } from 'react-toastify';
 import { putUpdateQuiz } from '../../../../service/apiService'
 import _ from 'lodash';
+import { useTranslation, Trans } from 'react-i18next';
 
 const ModalEditQuiz = (props) => {
     const { show, setShow, dataQuizUpdate } = props;
+    const { t } = useTranslation();
 
     const handleClose = () => {
         setShow(false);
@@ -74,12 +76,12 @@ const ModalEditQuiz = (props) => {
                 className='modal-add-user'
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>Update a quiz</Modal.Title>
+                    <Modal.Title>{t('modal-quiz.up-title')}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form className="row g-3">
                         <div className="col-md-6">
-                            <label className="form-label">Name</label>
+                            <label className="form-label">{t('quiz.name')}</label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -88,7 +90,7 @@ const ModalEditQuiz = (props) => {
                             />
                         </div>
                         <div className="col-md-6">
-                            <label className="form-label">Description</label>
+                            <label className="form-label">{t('quiz.des')}</label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -97,16 +99,16 @@ const ModalEditQuiz = (props) => {
                             />
                         </div>
                         <div className="col-md-4">
-                            <label className="form-label">Type</label>
+                            <label className="form-label">{t('quiz.type-t')}</label>
                             <select className="form-select" onChange={(event) => { setType(event.target.value) }}
                                 value={type} >
-                                <option value="EASY">EASY</option>
-                                <option value="MEDIUM">MEDIUM</option>
-                                <option value="HARD">HARD</option>
+                                <option value="EASY">{t('quiz.type-e')}</option>
+                                <option value="MEDIUM">{t('quiz.type-m')}</option>
+                                <option value="HARD">{t('quiz.type-h')}</option>
                             </select>
                         </div>
                         <div className='col-md-12'>
-                            <label className='form-label label-upload' htmlhtmlFor='labaluploadfile'><FcPlus /> Upload File Image</label>
+                            <label className='form-label label-upload' htmlhtmlFor='labaluploadfile'><FcPlus /> {t('m-user.upload')}</label>
                             <input type='file'
                                 id='labaluploadfile'
                                 hidden
@@ -116,17 +118,17 @@ const ModalEditQuiz = (props) => {
                             {previewImage ?
                                 <img src={previewImage} />
                                 :
-                                <span>Preview Image</span>
+                                <span>{t('m-user.preview')}</span>
                             }
                         </div>
                     </form>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Close
+                        {t('m-user.close')}
                     </Button>
                     <Button variant="primary" onClick={handleSubmitUpdateQuiz}>
-                        Save
+                        {t('m-user.save')}
                     </Button>
                 </Modal.Footer>
             </Modal>

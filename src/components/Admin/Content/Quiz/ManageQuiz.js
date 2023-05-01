@@ -10,7 +10,7 @@ import ModalDeleteQuiz from './ModalDeleteQuiz';
 import { getAllQuizForAdmin } from "../../../../service/apiService"
 import QuizQA from './QuizQA';
 import AssignQuiz from './AssignQuiz';
-
+    import { useTranslation, Trans } from 'react-i18next';
 
 const options = [
     { value: 'EASY', label: 'EASY' },
@@ -24,6 +24,7 @@ const ManageQuiz = (props) => {
     const [description, setDescription] = useState('');
     const [type, setType] = useState('EASY');
     const [image, setImage] = useState('');
+    const { t } = useTranslation();
 
     const [listQuiz, setListQuiz] = useState([])
 
@@ -81,11 +82,11 @@ const ManageQuiz = (props) => {
         <div className="quiz-container">
             <Accordion defaultActiveKey="0">
                 <Accordion.Item eventKey="0">
-                    <Accordion.Header>ManageQuiz</Accordion.Header>
+                    <Accordion.Header>{t('quiz.m-quiz')}</Accordion.Header>
                     <Accordion.Body>
                         <div className="add-new">
                             <fieldset className="border rounded-3 p-3">
-                                <legend className="float-none w-auto px-3">Add new quiz:</legend>
+                                <legend className="float-none w-auto px-3">{t('quiz.add-quiz')}:</legend>
                                 <div className="form-floating mb-3">
                                     <input
                                         type="text"
@@ -93,7 +94,7 @@ const ManageQuiz = (props) => {
                                         placeholder='your-quiz-name'
                                         value={name}
                                         onChange={(event) => setName(event.target.value)} />
-                                    <label htmlFor="floatingInput">Name</label>
+                                    <label htmlFor="floatingInput">{t('quiz.name')}</label>
                                 </div>
                                 <div className="form-floating">
                                     <input
@@ -102,7 +103,7 @@ const ManageQuiz = (props) => {
                                         placeholder='description'
                                         value={description}
                                         onChange={(event) => setDescription(event.target.value)} />
-                                    <label htmlFor="floatingPassword">Description</label>
+                                    <label htmlFor="floatingPassword">{t('quiz.des')}</label>
                                 </div>
                                 <div className='my-3'>
                                     <Select
@@ -110,11 +111,11 @@ const ManageQuiz = (props) => {
                                         onChange={setType}
                                         // onChange={this.handleChange}
                                         options={options}
-                                        placeholder={'Quiz type ...'}
+                                        placeholder={t('quiz.type')}
                                     />
                                 </div>
                                 <div className='more-actions form-group'>
-                                    <label className='mb-1'>Upload Image</label>
+                                    <label className='mb-1'>{t('quiz.up-img')}</label>
                                     <input
                                         type='file'
                                         className='form-control'
@@ -123,7 +124,7 @@ const ManageQuiz = (props) => {
                                 <div className='mt-3'>
                                     <button
                                         className='btn btn-warning '
-                                        onClick={() => handleSubmitQuiz()}>Save</button>
+                                        onClick={() => handleSubmitQuiz()}>{t('quiz.save')}</button>
                                 </div>
                             </fieldset>
                         </div>
@@ -137,13 +138,13 @@ const ManageQuiz = (props) => {
                     </Accordion.Body>
                 </Accordion.Item>
                 <Accordion.Item eventKey="1">
-                    <Accordion.Header>Update Q/A Quiz</Accordion.Header>
+                    <Accordion.Header>{t('quiz.up-quiz')}</Accordion.Header>
                     <Accordion.Body>
                         <QuizQA/>
                     </Accordion.Body>
                 </Accordion.Item>
                 <Accordion.Item eventKey="2">
-                    <Accordion.Header>Assign to users</Accordion.Header>
+                    <Accordion.Header>{t('quiz.as-quiz')}</Accordion.Header>
                     <Accordion.Body>
                         <AssignQuiz/>
                     </Accordion.Body>

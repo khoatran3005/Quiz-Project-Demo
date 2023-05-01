@@ -12,6 +12,7 @@ import {
     postCreateNewQuestionForQuiz, getQuizWithQA, postUpsertQA
 } from "../../../../service/apiService"
 import { toast } from 'react-toastify';
+import { useTranslation, Trans } from 'react-i18next';
 
 const QuizQA = (props) => {
 
@@ -30,6 +31,7 @@ const QuizQA = (props) => {
             ]
         }
     ]
+    const { t } = useTranslation();
     const [isPreviewImage, setIsPreviewImage] = useState(false);
     const [selectedQuiz, setSelectedQuiz] = useState('');
     const [questions, setQuestions] = useState(initQuestions);
@@ -263,7 +265,7 @@ const QuizQA = (props) => {
         <div className="question-container">
             <div className="add-new-question">
                 <div className='col-6 form-group'>
-                    <label className='mb-2'> Select Quiz</label>
+                    <label className='mb-2'> {t('question.select')}</label>
                     <Select
                         value={selectedQuiz}
                         onChange={setSelectedQuiz}
@@ -272,7 +274,7 @@ const QuizQA = (props) => {
                 </div>
 
                 <div className='mt-3 mb-2'>
-                    Add question:
+                {t('question.add')}:
                 </div>
 
                 {
@@ -288,7 +290,7 @@ const QuizQA = (props) => {
                                             placeholder="name@example.com"
                                             value={question.description}
                                             onChange={(event) => handleOnChange('QUESTION', question.id, event.target.value)} />
-                                        <label >Question {index + 1} 's description</label>
+                                        <label >{t('question.q')} {index + 1} {t('question.des')}</label>
                                     </div>
                                     <div className='group-upload'>
                                         <label htmlFor={`${question.id}`}>
@@ -302,7 +304,7 @@ const QuizQA = (props) => {
                                         <span>{question.imageName ?
                                             <span onClick={() => handlePreviewImage(question.id)} >{question.imageName}</span>
                                             :
-                                            '0 file is uploaded'
+                                            `${t('question.no-up')}`
                                         }</span>
                                     </div>
                                     <div className='btn-add'>
@@ -333,7 +335,7 @@ const QuizQA = (props) => {
                                                         placeholder="name@example.com"
                                                         onChange={(event) => handleAnswerQuestion('INPUT', answer.id, question.id, event.target.value)}
                                                     />
-                                                    <label >Answers {index + 1}</label>
+                                                    <label >{t('question.answer')} {index + 1}</label>
                                                 </div>
                                                 <div className='btn-group'>
                                                     <span onClick={() => handleAddRemoveAnswer('ADD', question.id, '')}>
@@ -360,7 +362,7 @@ const QuizQA = (props) => {
                     <div>
                         <button
                             className='btn btn-warning'
-                            onClick={() => handleSubmitQuestionForQuiz()}>Save Questions</button>
+                            onClick={() => handleSubmitQuestionForQuiz()}>{t('question.save')}</button>
                     </div>
                 }
 

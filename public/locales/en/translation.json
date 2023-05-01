@@ -6,5 +6,116 @@
                 "login": "Get's started. It's free",
                 "users": "Doing Quiz Now"
             }
+        },
+        "header": {
+            "home":"Home",
+            "users":"Users",
+            "admin": "Admin",
+            "login":"Log in",
+            "signup":"Sign up",
+            "profile":"Profile",
+            "logout":"Log out",
+            "setting":"Setting",
+            "doquiz":"Do Quiz"
+        },
+        "login": {
+            "corner":"Don't have an account yet?",
+            "signup":"Sign up",
+            "title":"Hello, who's this?",
+            "password":"Password",
+            "forgot":"Forgot password",
+            "submit":"Login to Quiz With Khoa",
+            "back":"Go to Homepage"
+        },
+        "signup": {
+            "corner":"Already have an account?",
+            "login": "Login",
+            "title":"Get better data with conversational forms, surveys, quizzes & more.",
+            "username":"Username",
+            "password":"Password",
+            "submit":"Create my new account",
+            "back":"Go to Homepage"
+        },
+        "user": {
+            "button": "Start Now",
+            "prev": "Prev",
+            "next":"Next",
+            "finish":"Finish",
+            "question":"Question",
+            "result-title":"Your Result",
+            "total-q":"Total Questions: ",
+            "correct":"Total Correct Answers: ",
+            "show":"Show Answer",
+            "close":"Close"
+        },
+        "admin":{
+            "dashboard":"Dashboard",
+            "u-management":"Users Management",
+            "q-management":"Quiz Management",
+            "qe-anagement":"Question Management",
+            "features":"Features",
+            "title-db":"Analytics Dashboard",
+            "user":"Total Users",
+            "quizzes":"Total Quizzes",
+            "questions":"Total Questions",
+            "answers":"Total Answers"
+        },
+        "m-user": {
+            "title":"Manage User",
+            "add":"Add new user",
+            "password":"Password",
+            "username":"Username",
+            "role":"Role",
+            "role-u":"USER",
+            "role-a":"ADMIN",
+            "upload":"Upload File Image",
+            "preview":"Preview Image",
+            "close":"Close",
+            "save": "Save",
+            "action":"Action",
+            "view":"View",
+            "update":"Update",
+            "delete":"Delete",
+            "not":"Not found data",
+            "title-d":"Confirm Delete the User",
+            "confirm":"Are you sure to deleta this user?",
+            "cancel":"Cancel",
+            "confirm-b":"Confirm",
+            "title-v":"View a user",
+            "title-u":"Updata a user"
+        },
+        "question": {
+            "title":"Manage Quiz",
+            "select":"Select Quiz",
+            "select-u":"Select User",
+            "add":"Add question",
+            "q":"Question",
+            "des":"'s description",
+            "answer":"Answers",
+            "save":"Save Quesion",
+            "no-up":"0 file is uploaded",
+            "as":"Assign"
+        },
+        "quiz": {
+            "m-quiz":"Manage Quiz",
+            "up-quiz":"Update Quiz",
+            "as-quiz":"Assign to Users",
+            "add-quiz":"Add new quiz",
+            "name":"Name",
+            "des":"Description",
+            "type":"Quiz type...",
+            "type-e":"EASY",
+            "type-m":"MEDIUM",
+            "type-h":"HARD",
+            "up-img":"Upload Image",
+            "save":"Save",
+            "list":"List Quizzes",
+            "type-t":"Type",
+            "edit":"Edit"
+        },
+        "modal-quiz":{
+            "up-title":"Update a quiz",
+            "de-title":"Confirm Delete the Quizz",
+            "confirm-d":"Are you sure to deleta this quiz. Quiz"
         }
 }

@@ -8,12 +8,16 @@ import { useState } from "react";
 import { Modal } from "bootstrap";
 import ModelResult from "./ModelResult";
 import RightContent from "./Content/RightContent";
+import { useTranslation, Trans } from 'react-i18next';
+import Breadcrumb from 'react-bootstrap/Breadcrumb';
+import { useNavigate } from 'react-router-dom';
 
 const DetailQuiz = (props) => {
     const params = useParams();
     const quizId = params.id;
     const location = useLocation();
-
+    const { t } = useTranslation();
+    const navigate = useNavigate();
     const [dataQuiz, setDataQuiz] = useState([]);
     const [index, setIndex] = useState(0);
 
@@ -120,45 +124,58 @@ const DetailQuiz = (props) => {
         }
     }
     return (
-        <div className="detail-quiz-container">
-            <div className="left-container">
-                <div className="title">
-                    Quiz {quizId}: {location?.state?.quizTitle}
+        <>
+            <Breadcrumb className="quiz-detail-new-header">
+                <Breadcrumb.Item href="/">
+                {t('header.home')}
+                </Breadcrumb.Item>
+                <Breadcrumb.Item href="/users">
+                {t('header.users')}
+                </Breadcrumb.Item>
+                <Breadcrumb.Item active>
+                {t('header.doquiz')}
+                </Breadcrumb.Item>
+            </Breadcrumb>
+            <div className="detail-quiz-container">
+                <div className="left-container">
+                    <div className="title">
+                        Quiz {quizId}: {location?.state?.quizTitle}
+                    </div>
+                    <hr />
+                    <div className="q-body">
+                        <img />
+                    </div>
+                    <div className="q-content">
+                        <Question
+                            handleCheckBox={handleCheckBox}
+                            index={index}
+                            data={dataQuiz && dataQuiz.length > 0 ? dataQuiz[index] : []}></Question>
+                    </div>
+                    <div className="footer mb-4">
+                        <button
+                            className="btn btn-secondary"
+                            onClick={() => handlePrev()}>{t('user.prev')}</button>
+                        <button
+                            className="btn btn-primary"
+                            onClick={() => handleNext()}>{t('user.next')}</button>
+                        <button
+                            className="btn btn-warning"
+                            onClick={() => handleFinish()}>{t('user.finish')}</button>
+                    </div>
                 </div>
-                <hr />
-                <div className="q-body">
-                    <img />
+                <div className="right-container">
+                    <RightContent
+                        dataQuiz={dataQuiz}
+                        handleFinish={handleFinish}
+                        setIndex={setIndex} />
                 </div>
-                <div className="q-content">
-                    <Question
-                        handleCheckBox={handleCheckBox}
-                        index={index}
-                        data={dataQuiz && dataQuiz.length > 0 ? dataQuiz[index] : []}></Question>
-                </div>
-                <div className="footer mb-4">
-                    <button
-                        className="btn btn-secondary"
-                        onClick={() => handlePrev()}>Prev</button>
-                    <button
-                        className="btn btn-primary"
-                        onClick={() => handleNext()}>Next</button>
-                    <button
-                        className="btn btn-warning"
-                        onClick={() => handleFinish()}>Finish</button>
-                </div>
+                <ModelResult
+                    show={isShowModalResult}
+                    setShow={setIsShowModalResult}
+                    dataModalResult={dataModalResult}
+                />
             </div>
-            <div className="right-container">
-                <RightContent
-                    dataQuiz={dataQuiz}
-                    handleFinish={handleFinish}
-                    setIndex={setIndex} />
-            </div>
-            <ModelResult
-                show={isShowModalResult}
-                setShow={setIsShowModalResult}
-                dataModalResult={dataModalResult}
-            />
-        </div>
+        </>
     )
 }
 
